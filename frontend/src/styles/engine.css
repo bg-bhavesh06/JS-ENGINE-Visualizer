@@ -1,0 +1,240 @@
+:root {
+  --bg-dark: #121214;
+  --bg-gradient: #121214;
+  --panel-bg: #1a1a1e;
+  --panel-border: #2e2e33;
+  --text-main: #e2e8f0;
+  --text-muted: #8a8a93;
+
+  /* Calibrated Standard Developer Colors */
+  --accent-primary: #3b82f6;      /* Cobalt Blue */
+  --accent-success: #10b981;      /* Emerald Green */
+  --accent-danger: #ef4444;       /* Ruby Red */
+  --accent-warning: #f59e0b;      /* Amber Yellow */
+
+  --accent-stack: #3b82f6;
+  --accent-webapi: #06b6d4;
+  --accent-microtask: #eab308;
+  --accent-callback: #f97316;
+  --accent-heap: #a855f7;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-dark);
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+.app-fit {
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Flat Simple Panel Layouts */
+.engine-panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  box-shadow: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.engine-panel:hover {
+  border-color: var(--panel-border);
+}
+
+/* Clean left diagnostic color indicator borders - only visible on hover */
+.heap-panel, .stack-panel, .webapi-panel, .microtask-panel, .callback-panel {
+  border-left: 3px solid transparent;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.heap-panel:hover {
+  border-left-color: var(--accent-heap);
+}
+.stack-panel:hover {
+  border-left-color: var(--accent-stack);
+}
+.webapi-panel:hover {
+  border-left-color: var(--accent-webapi);
+}
+.microtask-panel:hover {
+  border-left-color: var(--accent-microtask);
+}
+.callback-panel:hover {
+  border-left-color: var(--accent-callback);
+}
+
+.engine-title {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Flat Header Layout */
+.engine-heading {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.15rem;
+}
+
+.engine-subtitle {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* Flat scroll bars and containers */
+.engine-scroll {
+  flex: 1 1 0%;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.engine-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.engine-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.engine-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+}
+
+/* Simple item block elements */
+.engine-item {
+  border: 1px solid var(--panel-border);
+  background: #141416;
+  border-radius: 4px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.78rem;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Soft solid border pulse for highlighted elements */
+.engine-item-highlight {
+  border-color: var(--accent-primary) !important;
+  background: rgba(59, 130, 246, 0.06);
+}
+
+/* Monaco Code Editor custom highlight block overrides */
+.active-line-decoration {
+  background: rgba(59, 130, 246, 0.06) !important;
+  border-left: 2px solid var(--accent-primary) !important;
+}
+
+/* Simple Unix-like Terminal Console */
+.terminal-header {
+  background: #1a1a1e;
+  border-bottom: 1px solid var(--panel-border);
+  padding: 0.4rem 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px 8px 0 0;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.terminal-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.terminal-dot.red {
+  background: #ef4444;
+}
+.terminal-dot.yellow {
+  background: #f59e0b;
+}
+.terminal-dot.green {
+  background: #10b981;
+}
+
+.terminal-body {
+  background: #000000;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 0.78rem;
+  padding: 0.75rem;
+  overflow-y: auto;
+  height: 120px;
+  color: #ffffff;
+}
+
+.console-line {
+  color: #10b981;
+  padding: 0.15rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.console-line::before {
+  content: "➜";
+  color: #3b82f6;
+  font-weight: bold;
+}
+
+/* Simple Event Loop Orb centerpiece (No rotation) */
+.event-loop-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.event-loop-orb {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 1px solid var(--panel-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: #121214;
+}
+
+.event-loop-orb-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.event-loop-orb.active {
+  border-color: var(--accent-success);
+  color: #ffffff;
+  background: var(--accent-success);
+}
