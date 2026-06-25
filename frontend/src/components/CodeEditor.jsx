@@ -3,7 +3,7 @@ import Editor from "@monaco-editor/react";
 
 const editorOptions = {
   minimap: { enabled: false },
-  fontSize: 10,
+  fontSize: 15,
   lineNumbers: "on",
   scrollBeyondLastLine: false,
   wordWrap: "on",
@@ -29,7 +29,7 @@ const CodeEditor = ({ code, onChange, activeLine, onValidate }) => {
     if (!activeLine) {
       decorationIds.current = editorRef.current.deltaDecorations(
         decorationIds.current,
-        []
+        [],
       );
       return;
     }
@@ -51,7 +51,10 @@ const CodeEditor = ({ code, onChange, activeLine, onValidate }) => {
   }, [activeLine]);
 
   return (
-    <div className="engine-panel p-2 h-100 flex-grow-1" style={{ minHeight: 0 }}>
+    <div
+      className="engine-panel p-2 h-100 flex-grow-1"
+      style={{ minHeight: 0 }}
+    >
       <h3 className="engine-title px-2 pt-2 mb-2">Code Editor</h3>
       <div className="flex-grow-1" style={{ minHeight: 0 }}>
         <Editor
