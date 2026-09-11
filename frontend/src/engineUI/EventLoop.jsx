@@ -15,7 +15,7 @@ const EventLoop = ({ active }) => {
         </span>
         <button 
           className="btn btn-link p-0 text-decoration-none position-absolute" 
-          style={{ right: "0.2rem", top: "50%", transform: "translateY(-50%)", fontSize: "0.65rem", color: "var(--accent-primary)", fontWeight: "600", letterSpacing: "0.05em" }}
+          style={{ right: "0.2rem", top: "-15%", transform: "translateY(-50%)", fontSize: "0.65rem", color: "var(--accent-primary)", fontWeight: "600", letterSpacing: "0.05em" }}
         >
           ABOUT
         </button>
