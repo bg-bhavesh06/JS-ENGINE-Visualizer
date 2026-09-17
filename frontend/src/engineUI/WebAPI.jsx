@@ -1,11 +1,30 @@
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import AboutModal from "./AboutModal";
 
 const isHighlighted = (label, highlightTasks) =>
   (highlightTasks || []).some(
     (task) => task === label || label.includes(task) || task.includes(label),
   );
 
-const WebAPI = ({ items, highlightTasks = [] }) => {
+const webApiPoints = [
+  "Web APIs are provided by the browser environment, not by the JavaScript engine itself.",
+  "They handle operations that may take time to complete.",
+  "Examples include setTimeout, fetch, DOM events, and geolocation.",
+  "JavaScript starts the operation and continues executing other code.",
+  "When the operation is completed, its callback or result can be scheduled for JavaScript to process."
+];
+
+const webApiExamples = [
+  "setTimeout()",
+  "fetch()",
+  "DOM Events",
+  "Geolocation"
+];
+
+const WebAPI = ({ items, highlightTasks = [], onReadMore }) => {
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
+
   const renderLabel = (item) => {
     const label = item.label || item;
     if (
@@ -46,8 +65,10 @@ const WebAPI = ({ items, highlightTasks = [] }) => {
           WEB API'S
         </h3>
         <button 
+          type="button"
           className="btn btn-link p-0 text-decoration-none position-absolute" 
           style={{ right: "0.2rem", top: "50%", transform: "translateY(-50%)", fontSize: "0.65rem", color: "var(--accent-primary)", fontWeight: "600", letterSpacing: "0.05em" }}
+          onClick={() => setIsAboutOpen(true)}
         >
           ABOUT
         </button>
@@ -87,6 +108,16 @@ const WebAPI = ({ items, highlightTasks = [] }) => {
           )}
         </AnimatePresence>
       </div>
+
+      <AboutModal
+        isOpen={isAboutOpen}
+        onClose={() => setIsAboutOpen(false)}
+        title="Web APIs"
+        description="Web APIs are browser-provided features that allow JavaScript to perform asynchronous operations such as timers, network requests, and DOM events."
+        points={webApiPoints}
+        examples={webApiExamples}
+        onReadMore={onReadMore}
+      />
     </div>
   );
 };
