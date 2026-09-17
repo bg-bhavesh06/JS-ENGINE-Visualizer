@@ -1,30 +1,41 @@
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
-const dns = require("dns");
-dns.setServers(["8.8.8.8", "8.8.4.4"]);
+const express = require("express");
+const cors = require("cors");
+const { connectDB } = require("./src/config/db");
 
-const mongoose = require("mongoose");
+const simulateRoute = require("./src/routes/simulateRoute");
+const authRoute = require("./src/routes/authRoute");
 
-const app = require("./src/app");
+const app = express();
 const PORT = process.env.PORT || 5000;
 
-const DB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/js-engine-visualizer";
+// Connect to Database
+connectDB();
 
-mongoose
-  .connect(DB_URI)
-  .then(() => {
-    console.log("Database connected successfully.");
-    app.listen(PORT, () => {
-      console.log(`JS Engine Visualizer backend running on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error("Database connection error:", err);
-    app.listen(PORT, () => {
-      console.log(
-        `JS Engine Visualizer backend running on port ${PORT} (Database unavailable)`,
-      );
-    });
-  });
+// Middleware
+app.use(cors());
+app.use(express.json({ limit: "1mb" }));
+
+// Health Check
+app.get("/api/health", (_req, res) => {
+  res.json({ status: "ok", service: "js-engine-visualizer-backend" });
+});
+
+// Routes
+app.use("/api/simulate", simulateRoute);
+app.use("/api/auth", authRoute);
+
+// Global Error Handler
+app.use((err, _req, res, _next) => {
+  console.error("[server-error]", err);
+  res.status(500).json({ message: "Something went wrong in simulation API." });
+});
+
+// Start Server
+app.listen(PORT, () => {
+  console.log(`JS Engine Visualizer backend running on port ${PORT}`);
+});
+
+
